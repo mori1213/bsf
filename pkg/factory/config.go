@@ -69,8 +69,9 @@ type Sbi struct {
 }
 
 type Tls struct {
-	Pem string `yaml:"pem,omitempty"`
-	Key string `yaml:"key,omitempty"`
+	Verify bool   `yaml:"verify,omitempty" valid:"type(bool)"`
+	Pem    string `yaml:"pem,omitempty"`
+	Key    string `yaml:"key,omitempty"`
 }
 
 type MongoDB struct {
@@ -245,4 +246,16 @@ func (c *Config) GetPingTimeout() time.Duration {
 		return 2 * time.Second
 	}
 	return *c.Configuration.PingTimeout
+}
+
+// GetTLSVerify controls outgoing SBI server certificate verification.
+// Configuration is read before traffic starts; omitted verify retains false.
+func (c *Config) GetTLSVerify() bool {
+	if c == nil {
+		return false
+	}
+	c.RLock()
+	defer c.RUnlock()
+	return c.Configuration != nil && c.Configuration.Sbi != nil &&
+		c.Configuration.Sbi.Tls != nil && c.Configuration.Sbi.Tls.Verify
 }
