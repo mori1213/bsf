@@ -3,7 +3,7 @@ module github.com/free5gc/bsf
 go 1.26.2
 
 require (
-	github.com/free5gc/openapi v1.3.1-0.20261014070323-89accd9890ce
+	github.com/free5gc/openapi v1.3.1-0.20261022060819-1fa510b3e4a2
 	github.com/free5gc/util v1.4.1-0.20261014070359-d865b0ce854b
 	github.com/gin-contrib/cors v1.6.0
 	github.com/gin-gonic/gin v1.10.0
